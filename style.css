@@ -20,44 +20,25 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.8rem 2.5rem;
-    /* un poco más de aire a los lados */
     z-index: 1000;
     box-sizing: border-box;
-    /* asegura que el padding cuente correctamente */
-}
-
-.navbar-lines h1 {
-    color: var(--azul);
-    font-size: 1.2rem;
-    text-align: right;
-    margin: 0;
-    font-weight: 700;
-    white-space: nowrap;
-    /* evita que el texto salte de línea */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* si llegara a desbordar, muestra "..." */
-    max-width: 50%;
-    /* evita que ocupe más de la mitad del navbar */
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .navbar-logos {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.2rem;
 }
 
-/* Grupo de logo + texto LINES */
 .lines-logo-group {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.logo-utn {
-    height: 50px;
-}
-
+.logo-utn,
 .logo-lines {
     height: 50px;
 }
@@ -67,6 +48,18 @@
     color: #212529;
     font-size: 1.5rem;
     letter-spacing: 1px;
+}
+
+.navbar-lines h1 {
+    color: var(--azul);
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+    max-width: 50%;
 }
 
 /* ===== FORMULARIO ===== */
@@ -84,15 +77,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 160px 20px 80px 40px;
-    /* espacio arriba por el navbar */
+    padding: 160px 20px 80px;
+    box-sizing: border-box;
 }
 
 .card {
     background-color: var(--blanco);
     border-radius: 16px;
     box-shadow: 0 6px 25px var(--sombra);
-    max-width: 50%;
+    max-width: 600px;
+    width: 100%;
     padding: 40px;
     animation: fadeIn 0.5s ease;
 }
@@ -114,8 +108,6 @@ label {
 input,
 select {
     width: 100%;
-    box-sizing: border-box;
-    /* asegura que padding y border cuenten dentro del ancho */
     padding: 10px;
     border: 1px solid var(--borde);
     border-radius: 8px;
@@ -125,9 +117,9 @@ select {
     font-family: inherit;
     transition: 0.2s;
     appearance: none;
-    /* quita el estilo nativo del navegador */
     -webkit-appearance: none;
     -moz-appearance: none;
+    box-sizing: border-box;
 }
 
 select {
@@ -136,7 +128,6 @@ select {
     background-position: right 12px center;
     background-size: 14px;
     padding-right: 36px;
-    /* espacio para la flecha */
     cursor: pointer;
 }
 
@@ -149,12 +140,9 @@ select:focus {
 }
 
 button {
-    width: 50%;
-    /* ocupa la mitad del ancho del formulario */
-    margin: 25px auto 0 auto;
-    /* centra el botón horizontalmente */
+    width: 60%;
+    margin: 25px auto 0;
     display: block;
-    /* necesario para que el margin funcione */
     padding: 12px;
     background-color: var(--azul);
     color: white;
@@ -163,32 +151,37 @@ button {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 button:hover {
     background-color: #1f4a8c;
 }
 
-
 /* ===== FOOTER ===== */
 .footer-lines {
     background-color: #212529;
     color: #f8f9fa;
     padding: 40px 0 20px;
-    font-family: "Helvetica Neue", Arial, sans-serif;
     text-align: center;
+}
+
+.footer-lines .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.footer-lines .footer-col {
+    flex: 1 1 280px;
+    max-width: 400px;
 }
 
 .footer-lines h5 {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
     color: #ffffff;
-}
-
-.footer-lines hr {
-    width: 60px;
-    margin: 0.5rem auto 1rem;
-    border: 1px solid #6c757d;
 }
 
 .footer-lines p {
@@ -206,20 +199,7 @@ button:hover {
     text-decoration: underline;
 }
 
-.footer-lines .footer-inner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-}
-
-.footer-lines .footer-col {
-    flex: 1 1 300px;
-    max-width: 400px;
-}
-
 .footer-lines .social-links a {
-    display: inline-block;
     margin: 0 8px;
     font-size: 1.8rem;
     color: #f8f9fa;
@@ -236,36 +216,7 @@ button:hover {
     color: #adb5bd;
 }
 
-/* RESPONSIVO */
-@media (max-width: 800px) {
-    .navbar-lines {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 0.8rem 2.5rem;
-    }
-
-    .navbar-logos {
-        justify-content: center;
-    }
-
-    .navbar-lines h1 {
-        text-align: center;
-        max-width: 100%;
-        font-size: 1.1rem;
-        margin-top: 0.5rem;
-    }
-
-    .container {
-        padding-top: 200px;
-    }
-
-    .card {
-        max-width: 90%;
-        padding: 30px;
-    }
-}
-
+/* ===== ANIMACIONES ===== */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -281,8 +232,7 @@ button:hover {
 .loader {
     margin: 20px auto;
     border: 4px solid #f3f3f3;
-    border-top: 4px solid #275BA4;
-    /* azul institucional */
+    border-top: 4px solid var(--azul);
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -313,4 +263,80 @@ button:hover {
 .mensaje-final p {
     color: #333;
     font-size: 1rem;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 1024px) {
+    .navbar-lines h1 {
+        max-width: 60%;
+        font-size: 1.1rem;
+    }
+
+    .container {
+        padding-top: 150px;
+    }
+}
+
+@media (max-width: 800px) {
+    .navbar-lines {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .navbar-lines h1 {
+        max-width: 100%;
+        font-size: 1.05rem;
+        margin-top: 0.3rem;
+    }
+
+    .logo-lines,
+    .logo-utn {
+        height: 45px;
+    }
+
+    .lines-text {
+        font-size: 1.3rem;
+    }
+
+    .container {
+        padding-top: 200px;
+    }
+
+    .card {
+        max-width: 90%;
+        padding: 30px;
+    }
+
+    button {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-lines {
+        padding: 0.8rem 1rem;
+    }
+
+    .logo-lines,
+    .logo-utn {
+        height: 40px;
+    }
+
+    .lines-text {
+        font-size: 1.1rem;
+    }
+
+    .navbar-lines h1 {
+        font-size: 1rem;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    button {
+        width: 100%;
+    }
 }
