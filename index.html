@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oferta de Empleo | LINES UTN FRLP</title>
+    <link rel="icon" href="https://lines.frlp.utn.edu.ar/themes/custom/lines_theme/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css" />
+    <!-- Fuente e íconos (Font Awesome) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- ============================== -->
+    <!-- NAVBAR - LOGOS UTN Y LINES -->
+    <!-- ============================== -->
+    <nav class="navbar-lines">
+        <div class="navbar-logos">
+            <div class="lines-logo-group">
+                <img src="https://lines.frlp.utn.edu.ar/themes/custom/lines_theme/logo.svg" alt="Logo LINES"
+                    class="logo-lines">
+                <span class="lines-text">LINES</span>
+            </div>
+            <img src="https://www.utn.edu.ar/images/logo-utn.png" alt="Logo UTN" class="logo-utn">
+        </div>
+        <h1>Propuesta Laboral - LINES UTN FRLP</h1>
+    </nav>
+
+    <!-- ===================================== -->
+    <!-- FORMULARIO - PROPUESTA LABORAL LINES -->
+    <!-- ===================================== -->
+    <main class="container">
+        <form id="formulario" class="card">
+            <p class="descripcion">
+                Este formulario recopila los datos de estudiantes interesados en participar
+                en la <strong>propuesta laboral X</strong> del <strong>Laboratorio LINES</strong>
+                de la <strong>UTN Facultad Regional La Plata</strong>.
+            </p>
+
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required />
+
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" name="apellido" required />
+
+            <label for="legajo">Legajo</label>
+            <input type="number" id="legajo" name="legajo" required />
+
+            <label for="carrera">Carrera</label>
+            <select id="carrera" name="carrera" required>
+                <option value="">Seleccione una opción</option>
+                <option>Ingeniería en Sistemas</option>
+                <option>Ingeniería Industrial</option>
+                <option>Ingeniería Mecanica</option>
+                <option>Ingeniería Quimica</option>
+                <option>Ingeniería Electrica</option>
+                <option>Ingeniería Civil</option>
+            </select>
+
+            <label for="porcentaje">Porcentaje de carrera (%)</label>
+            <input type="number" id="porcentaje" name="porcentaje" min="0" max="100" required />
+
+            <label for="email">Email institucional</label>
+            <input type="email" id="email" name="email" placeholder="Ejemplo@frlp.utn.edu.ar" required />
+
+            <button type="submit">Enviar datos</button>
+        </form>
+    </main>
+
+    <!-- ======================== -->
+    <!-- PIE DE PÁGINA / FOOTER -->
+    <!-- ======================== -->
+    <footer class="footer-lines">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h5>CONTACTO</h5>
+                <hr />
+                <p>
+                    Universidad Tecnológica Nacional - Facultad Regional La Plata - LINES
+                </p>
+                <p>Av. 60 esq. 124 s/n, Berisso, Buenos Aires, Argentina</p>
+                <p>
+                    <a href="https://lines.frlp.utn.edu.ar/contact" class="link">Formulario de Contacto</a>
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h5>SÍGUENOS EN</h5>
+                <hr />
+                <p class="social-links">
+                    <a href="https://twitter.com/lines_FRLP" target="_blank" aria-label="Twitter"><i
+                            class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/lines-frlp-utn/?originalSubdomain=ar" target="_blank"
+                        aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/lines.utn.frlp/" target="_blank" aria-label="Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                </p>
+                <p class="footer-bottom-text">
+                    Desarrollado por LINES | UTN - La Plata ©2024
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ======================== -->
+    <!-- SCRIPT: ENVÍO DE DATOS -->
+    <!-- ======================== -->
+    <script>
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzxPyeP1AnfPqpWaAj7yw3vupU11q9EXzKO7IB3XMp1fYBJKUuWKWVMymQQPCd2H-C9/exec";
+        const form = document.getElementById("formulario");
+        const button = form.querySelector("button");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = new FormData(form);
+
+            // 🔒 Desactivar todos los campos y el botón
+            const inputs = form.querySelectorAll("input, select, button");
+            inputs.forEach(el => el.disabled = true);
+
+            // Mostrar estado de envío
+            button.textContent = "Enviando...";
+            const loader = document.createElement("div");
+            loader.classList.add("loader");
+            form.appendChild(loader);
+
+            try {
+                const response = await fetch(scriptURL, { method: "POST", body: data });
+
+                if (response.ok) {
+                    // ✅ Mostrar mensaje de éxito
+                    form.innerHTML = `
+        <div class="mensaje-final">
+          <h2>¡Datos enviados correctamente!</h2>
+          <p>El <strong>Laboratorio LINES</strong> se comunicará con usted a su correo institucional.</p>
+        </div>
+      `;
+                } else {
+                    // ⚠️ Error en el envío
+                    alert("❌ Hubo un problema al enviar los datos.");
+                    inputs.forEach(el => el.disabled = false);
+                    button.textContent = "Enviar datos";
+                    loader.remove();
+                }
+            } catch (error) {
+                // ⚠️ Error de conexión o script
+                alert("⚠️ Error de conexión o script.");
+                console.error(error);
+                inputs.forEach(el => el.disabled = false);
+                button.textContent = "Enviar datos";
+                loader.remove();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
