@@ -94,8 +94,15 @@
                 <option>Ingeniería Civil</option>
             </select>
 
-            <label for="porcentaje">Porcentaje de carrera (%)</label>
-            <input type="number" id="porcentaje" name="porcentaje" min="0" max="100" required />
+            <label for="aniocarrera">Año de carrera</label>
+            <select id="aniocarrera" name="aniocarrera" required>
+                <option value="">Seleccione una opción</option>
+                <option>Primer año</option>
+                <option>Segundo año</option>
+                <option>Tercero año</option>
+                <option>Cuarto año</option>
+                <option>Quinto año</option>
+            </select>
 
             <button type="submit">Enviar datos</button>
         </form>
@@ -122,12 +129,12 @@
                 <h5>SÍGUENOS EN</h5>
                 <hr />
                 <p class="social-links">
-                    <a href="https://x.com/nicolasfischman?s=21&t=hYM_ufI5SlmXTVwOL9XMAA" target="_blank" aria-label="Twitter"><i
-                            class="fab fa-twitter"></i></a>
-                    <a href="https://www.linkedin.com/in/marcosgalperin?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"
-                        aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/leomessi?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" aria-label="Instagram"><i
-                            class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/nicolasfischman?s=21&t=hYM_ufI5SlmXTVwOL9XMAA" target="_blank"
+                        aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/marcosgalperin?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                        target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/leomessi?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                        target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </p>
                 <p class="footer-bottom-text">
                     Desarrollado por LINES | UTN - La Plata ©2024
@@ -151,7 +158,7 @@
             formulario.style.display = "block";
         });
 
-        const scriptURL = "https://script.google.com/macros/s/AKfycbyE9MCdWY2UfyZ1mwkEw0b50phvJ9FOTkT2qqYtgmGxdsZeTylr9RFyAI0sVtl8ShDH/exec";
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzOppLR4Zj2zU6IguUIXAi77eTbkK414gNM14FJQmE_q2FEmk4TB2P028D2RfYl1fqI/exec";
 
         formulario.addEventListener("submit", async (e) => {
             e.preventDefault();
