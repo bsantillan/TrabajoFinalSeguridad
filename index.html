@@ -7,7 +7,6 @@
     <title>Oferta de Empleo | LINES UTN FRLP</title>
     <link rel="icon" href="https://lines.frlp.utn.edu.ar/themes/custom/lines_theme/logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css" />
-    <!-- Fuente e íconos (Font Awesome) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 </head>
 
@@ -18,31 +17,68 @@
     <nav class="navbar-lines">
         <div class="navbar-logos">
             <div class="lines-logo-group">
-                <img src="https://lines.frlp.utn.edu.ar/themes/custom/lines_theme/logo.svg" alt="Logo LINES"
-                    class="logo-lines">
+                <a href="https://lines.frlp.utn.edu.ar/" target="_blank">
+                    <img src="https://lines.frlp.utn.edu.ar/themes/custom/lines_theme/logo.svg" alt="Logo LINES"
+                        class="logo-lines">
+                </a>
                 <span class="lines-text">LINES</span>
             </div>
-            <img src="https://www.utn.edu.ar/images/logo-utn.png" alt="Logo UTN" class="logo-utn">
+            <a href="https://www.frlp.utn.edu.ar/" target="_blank">
+                <img src="https://www.frlp.utn.edu.ar/themes/custom/b5frlp/logo.svg" alt="Logo UTN" class="logo-utn">
+            </a>
         </div>
         <h1>Propuesta Laboral - LINES UTN FRLP</h1>
     </nav>
 
     <!-- ===================================== -->
-    <!-- FORMULARIO - PROPUESTA LABORAL LINES -->
+    <!-- MENSAJE INICIAL -->
     <!-- ===================================== -->
     <main class="container">
-        <form id="formulario" class="card">
-            <p class="descripcion">
-                Este formulario recopila los datos de estudiantes interesados en participar
-                en la <strong>propuesta laboral X</strong> del <strong>Laboratorio LINES</strong>
-                de la <strong>UTN Facultad Regional La Plata</strong>.
+        <div id="mensaje-inicial" class="card">
+            <h2 style="text-align: center;">¡Querés dar tu primer paso profesional dentro de la universidad?</h2>
+            <p>
+                El Laboratorio de Innovación y Desarrollo Tecnológico <strong>(LINES)</strong> de la <strong>UTN
+                    FRLP</strong> te invita a participar en
+                sus pasantías remuneradas 2026.
             </p>
+            <p>
+                Buscamos estudiantes de Ingeniería Civil, Industrial, Mecánica, Eléctrica, Química y en Sistemas, con
+                ganas de aprender, crear y aplicar sus conocimientos en proyectos reales de investigación, desarrollo y
+                transferencia tecnológica.
+            </p>
+            <p>Durante la pasantía vas a poder:</p>
+            <ul>
+                <li>Participar en proyectos interdisciplinarios con impacto real.</li>
+                <li>Trabajar junto a docentes e investigadores.</li>
+                <li>Acceder a espacios de formación y certificación UTN.</li>
+                <li>Desarrollar experiencia práctica en tu área.</li>
+                <li>Participar en proyectos reales de innovación junto a empresas.</li>
+            </ul>
+            <p>
+                <strong>Modalidad:</strong> Presencial (UTN FRLP)<br>
+                <strong>Duración:</strong> 6 meses (20 h semanales)<br>
+                <strong>Inicio:</strong> Marzo 2026<br>
+                <strong>Pasantía:</strong> remunerada<br>
+                <strong>Colaboración:</strong> con empresas del sector industrial y tecnológico<br>
+                <strong>Cupos:</strong> limitados
+            </p>
+            <p style="text-align: center;">Completá este formulario y postulá hoy.<br><strong>¡Tu futuro profesional
+                    empieza acá!</strong></p>
+            <button id="boton-siguiente">Siguiente</button>
+        </div>
 
+        <!-- ===================================== -->
+        <!-- FORMULARIO - OCULTO AL INICIO -->
+        <!-- ===================================== -->
+        <form id="formulario" class="card" style="display: none;">
             <label for="nombre">Nombre</label>
             <input type="text" id="nombre" name="nombre" required />
 
             <label for="apellido">Apellido</label>
             <input type="text" id="apellido" name="apellido" required />
+
+            <label for="email">Email Institucional</label>
+            <input type="email" id="email" name="email" required />
 
             <label for="legajo">Legajo</label>
             <input type="number" id="legajo" name="legajo" required />
@@ -104,48 +140,55 @@
     <!-- SCRIPT: ENVÍO DE DATOS -->
     <!-- ======================== -->
     <script>
-        const scriptURL = "https://script.google.com/macros/s/AKfycbyspy1PtWBOIf51R1IqnteUXoPlhdI5VaNVcfOQR8MzXFfzF63_4rHO0Ixp250xrHxQ/exec";
-        const form = document.getElementById("formulario");
-        const button = form.querySelector("button");
+        const mensajeInicial = document.getElementById("mensaje-inicial");
+        const botonSiguiente = document.getElementById("boton-siguiente");
+        const formulario = document.getElementById("formulario");
+        const buttonSubmit = formulario.querySelector("button");
 
-        form.addEventListener("submit", async (e) => {
+        // Mostrar formulario al presionar "Siguiente"
+        botonSiguiente.addEventListener("click", () => {
+            mensajeInicial.style.display = "none";
+            formulario.style.display = "block";
+        });
+
+        const scriptURL = "https://script.google.com/macros/s/AKfycbyE9MCdWY2UfyZ1mwkEw0b50phvJ9FOTkT2qqYtgmGxdsZeTylr9RFyAI0sVtl8ShDH/exec";
+
+        formulario.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const data = new FormData(form);
+            const data = new FormData(formulario);
 
-            // 🔒 Desactivar todos los campos y el botón
-            const inputs = form.querySelectorAll("input, select, button");
+            const inputs = formulario.querySelectorAll("input, select, button");
             inputs.forEach(el => el.disabled = true);
 
-            // Mostrar estado de envío
-            button.textContent = "Enviando...";
+            buttonSubmit.textContent = "Enviando...";
             const loader = document.createElement("div");
             loader.classList.add("loader");
-            form.appendChild(loader);
+            formulario.appendChild(loader);
 
             try {
                 const response = await fetch(scriptURL, { method: "POST", body: data });
 
                 if (response.ok) {
-                    // ✅ Mostrar mensaje de éxito
-                    form.innerHTML = `
-        <div class="mensaje-final">
-          <h2>¡Datos enviados correctamente!</h2>
-          <p>El <strong>Laboratorio LINES</strong> se comunicará con usted a su correo institucional.</p>
-        </div>
-      `;
+                    formulario.innerHTML = `
+                        <div class="mensaje-final">
+                            <h2>¡Gracias por postularte!</h2>
+                            <p>Recibimos tu solicitud para la Pasantía Remunerada del Laboratorio <strong>LINES – UTN FRLP</strong>.
+                                En breve te contactaremos por mail para contarte los próximos pasos.
+                            </p>
+                            <p style="text-align: center;"><strong>¡Nos vemos pronto en el laboratorio!</strong></p>
+                        </div>
+                    `;
                 } else {
-                    // ⚠️ Error en el envío
                     alert("❌ Hubo un problema al enviar los datos.");
                     inputs.forEach(el => el.disabled = false);
-                    button.textContent = "Enviar datos";
+                    buttonSubmit.textContent = "Enviar datos";
                     loader.remove();
                 }
             } catch (error) {
-                // ⚠️ Error de conexión o script
                 alert("⚠️ Error de conexión o script.");
                 console.error(error);
                 inputs.forEach(el => el.disabled = false);
-                button.textContent = "Enviar datos";
+                buttonSubmit.textContent = "Enviar datos";
                 loader.remove();
             }
         });
